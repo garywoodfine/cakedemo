@@ -1,1 +1,8 @@
-tools   
+# Cake - Uncomment if you are using it
+tools/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
