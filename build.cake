@@ -37,7 +37,9 @@ Task("Build")
          if(IsRunningOnWindows())
     {
       // Use MSBuild
-      MSBuild(solutionFile , settings => settings.SetConfiguration(configuration));
+      //MSBuild(solutionFile , settings => settings.SetConfiguration(configuration));
+       DotNetCoreBuild(projJson);
+
     }
     else
     {
