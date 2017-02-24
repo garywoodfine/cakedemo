@@ -1,5 +1,5 @@
 language: csharp
-solution: portal.sln
+solution: ./src/cakedemo.sln
 
 script:    # Use the Cake BUild script to build the application
   - ./build.sh
