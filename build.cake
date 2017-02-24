@@ -11,6 +11,18 @@ var projJson = String.Concat(projDir , "project.json");
 var solutionFile = "";
 var outputDir = Directory(binDir) + Directory(configuration);
 
+var buildSettings = new DotNetCoreBuildSettings
+     {
+         Framework = "netcoreapp1.1",
+         Configuration = "Release",
+         OutputDirectory = outputDir
+     };
+ var packSettings = new DotNetCorePackSettings
+        {
+            OutputDirectory = outputDir,
+            NoBuild = true
+        };
+
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -38,13 +50,13 @@ Task("Build")
     {
       // Use MSBuild
       //MSBuild(solutionFile , settings => settings.SetConfiguration(configuration));
-       DotNetCoreBuild(projJson);
+       DotNetCoreBuild(projJson, buildSettings);
 
     }
     else
     {
       // Use XBuild
-     DotNetCoreBuild(projJson);
+     DotNetCoreBuild(projJson, buildSettings);
      
     }
     });
@@ -52,13 +64,8 @@ Task("Build")
 Task("Package")
     .IsDependentOn("Build")
     .Does(() => {
-        var settings = new DotNetCorePackSettings
-        {
-            OutputDirectory = outputDir,
-            NoBuild = true
-        };
-
-         DotNetCorePack(projJson, settings);
+       
+         DotNetCorePack(projJson, packSettings);
 
     });
 
