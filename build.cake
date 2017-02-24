@@ -7,7 +7,7 @@ var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var projDir = "./src/artefacts/";
 var binDir = String.Concat(projDir,"bin" ) ;
-var projJson = String.Concat(projDir , "project.json");
+
 var solutionFile = "./src/cakedemo.sln";
 var outputDir = Directory(binDir) + Directory(configuration);
 
@@ -17,11 +17,7 @@ var buildSettings = new DotNetCoreBuildSettings
          Configuration = "Release",
          OutputDirectory = outputDir
      };
- var packSettings = new DotNetCorePackSettings
-        {
-            OutputDirectory = outputDir,
-            NoBuild = true
-        };
+
 
 
 //////////////////////////////////////////////////////////////////////
