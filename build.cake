@@ -5,10 +5,10 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
-var projDir = "./src/demoapi/";
+var projDir = "./src/artefacts/";
 var binDir = String.Concat(projDir,"bin" ) ;
 var projJson = String.Concat(projDir , "project.json");
-var solutionFile = "";
+var solutionFile = "./src/cakedemo.sln";
 var outputDir = Directory(binDir) + Directory(configuration);
 
 var buildSettings = new DotNetCoreBuildSettings
@@ -39,7 +39,7 @@ Task("Clean")
 
 Task("Restore")
     .Does(() => {
-        DotNetCoreRestore(projDir);
+        DotNetCoreRestore(solutionFile);
     });
 
 Task("Build")
@@ -50,24 +50,17 @@ Task("Build")
     {
       // Use MSBuild
       //MSBuild(solutionFile , settings => settings.SetConfiguration(configuration));
-       DotNetCoreBuild(projJson, buildSettings);
+       DotNetCoreBuild(solutionFile, buildSettings);
 
     }
     else
     {
       // Use XBuild
-     DotNetCoreBuild(projJson, buildSettings);
+     DotNetCoreBuild(solutionFile, buildSettings);
      
     }
     });
 
-Task("Package")
-    .IsDependentOn("Build")
-    .Does(() => {
-       
-         DotNetCorePack(projJson, packSettings);
-
-    });
 
 
 //////////////////////////////////////////////////////////////////////
@@ -75,7 +68,7 @@ Task("Package")
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Package");
+    .IsDependentOn("Build");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
