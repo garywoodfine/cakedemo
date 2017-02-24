@@ -3,7 +3,7 @@
 .vscode
 # Cake - Uncomment if you are using it
 tools/
-
+artefacts/*
 # User-specific files
 *.suo
 *.user

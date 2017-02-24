@@ -44,14 +44,14 @@ Task("Build")
     .Does(() => {
          if(IsRunningOnWindows())
     {
-      // Use MSBuild
+      // We may want to Use MSBuild on a windows machine
       //MSBuild(solutionFile , settings => settings.SetConfiguration(configuration));
        DotNetCoreBuild(solutionFile, buildSettings);
 
     }
     else
     {
-      // Use XBuild
+      // Use XBuild on *nix based systems
      DotNetCoreBuild(solutionFile, buildSettings);
      
     }
